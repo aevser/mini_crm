@@ -13,6 +13,11 @@ class Host extends Model
         'api_token'
     ];
 
+    public function setUrlAttribute($url): void
+    {
+        $this->attributes['url'] = preg_replace('#^https?://#', '', $url);
+    }
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
