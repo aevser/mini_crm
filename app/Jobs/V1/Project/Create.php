@@ -3,6 +3,7 @@
 namespace App\Jobs\V1\Project;
 
 use App\Models\CRM\Project;
+use App\Services\LogService;
 use Illuminate\Foundation\Queue\Queueable;
 
 class Create
@@ -36,6 +37,14 @@ class Create
             'leads_today' => $this->leads_today,
             'leads_total' => $this->leads_total
         ]);
+
+        LogService::log(
+            action: 'Проект добавлен',
+            details: [
+                'ID Проекта' => $project->id,
+                'Проект' => $this->name,
+            ]
+        );
 
         return $project;
     }

@@ -8,3 +8,6 @@ Route::apiResource('hosts', V1\HostController::class)
     ->except('show', 'update');
 Route::apiResource('leads', V1\LeadController::class)
     ->except('show', 'update');
+
+Route::get('logs', [V1\LogController::class, 'index'])
+    ->name('logs.index');

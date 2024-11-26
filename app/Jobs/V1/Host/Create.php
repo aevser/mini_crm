@@ -3,6 +3,7 @@
 namespace App\Jobs\V1\Host;
 
 use App\Models\CRM\Host;
+use App\Services\LogService;
 use Illuminate\Foundation\Queue\Queueable;
 
 class Create
@@ -32,6 +33,15 @@ class Create
             'url' => $this->url,
             'api_token' => $this->api_token,
         ]);
+
+        LogService::log(
+            action: 'Хост добавлен',
+            details: [
+                'ID Проекта' => $host->project->id,
+                'Проект' => $host->project->name,
+                'URL' => $host->url,
+            ]
+        );
 
         return $host;
     }

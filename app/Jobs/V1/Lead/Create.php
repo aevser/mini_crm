@@ -3,6 +3,7 @@
 namespace App\Jobs\V1\Lead;
 
 use App\Models\CRM\Lead;
+use App\Services\LogService;
 use Illuminate\Foundation\Queue\Queueable;
 
 class Create
@@ -46,6 +47,20 @@ class Create
             'host' => $this->host,
             'ip' => $this->ip,
         ]);
+
+        LogService::log(
+            action: 'Получен лид',
+            details: [
+                'ID Проекта' => $lead->project_id,
+                'Проект' => $lead->project->name,
+                'Статус' => $lead->status,
+                'Имя' => $lead->name,
+                'Телефон' => $lead->phone,
+                'Город' => $lead->city,
+                'Подсадочная' => $lead->host,
+                'IP' => $lead->ip,
+            ]
+        );
 
         return $lead;
     }

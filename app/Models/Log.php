@@ -10,4 +10,8 @@ class Log extends Model
         'action',
         'details'
     ];
+
+    protected $casts = [
+        'details' => 'array'
+    ];
 }

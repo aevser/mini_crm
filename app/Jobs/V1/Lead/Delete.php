@@ -3,6 +3,7 @@
 namespace App\Jobs\V1\Lead;
 
 use App\Models\CRM\Lead;
+use App\Services\LogService;
 use Illuminate\Foundation\Queue\Queueable;
 
 class Delete
@@ -27,6 +28,17 @@ class Delete
     {
         $lead = Lead::findOrFail($this->lead_id);
         $lead->delete();
+
+        LogService::log(
+            action: 'Лид удален',
+            details: [
+                'ID Лида' => $lead->id,
+                'ID Проекта' => $lead->project->id,
+                'Проект' => $lead->project->name,
+                'Имя' => $lead->name,
+                'Телефон' => $lead->phone,
+            ]
+        );
 
         return $lead;
     }

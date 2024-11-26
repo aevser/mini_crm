@@ -3,6 +3,7 @@
 namespace App\Jobs\V1\Project;
 
 use App\Models\CRM\Project;
+use App\Services\LogService;
 use Illuminate\Foundation\Queue\Queueable;
 
 class Update
@@ -35,6 +36,15 @@ class Update
             'leads_today' => $this->leads_today,
             'leads_total' => $this->leads_total
         ]);
+
+        LogService::log(
+            action: 'Проект обновлен',
+            details: [
+                'ID Проекта' => $project->id,
+                'Проект' => $this->name,
+                'Включен / Выключен' => $this->enabled
+            ]
+        );
 
         return $project;
     }

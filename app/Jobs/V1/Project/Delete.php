@@ -3,6 +3,7 @@
 namespace App\Jobs\V1\Project;
 
 use App\Models\CRM\Project;
+use App\Services\LogService;
 use Illuminate\Foundation\Queue\Queueable;
 
 class Delete
@@ -27,6 +28,14 @@ class Delete
     {
         $project = Project::findOrFail($this->project_id);
         $project->delete();
+
+        LogService::log(
+            action: 'Проект удален',
+            details: [
+                'ID Проекта' => $project->id,
+                'Проект' => $project->name,
+            ]
+        );
 
         return $project;
     }
