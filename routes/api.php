@@ -8,6 +8,9 @@ Route::post('login', [V1\AuthController::class, 'login'])->name('user.login');
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('project', V1\Project\ProjectController::class);
 
+    Route::apiResource('host', V1\Project\HostController::class);
+        Route::post('host/{host}/refresh', [V1\Project\HostController::class, 'refreshHostToken']);
+
     Route::post('logout', [V1\AuthController::class, 'logout'])->name('user.logout');
 });
 
