@@ -7,6 +7,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::apiResource('project', V1\Project\ProjectController::class);
 
+        Route::apiResource('project/{project}/hosts', V1\Project\HostController::class)->only(['index', 'store', 'destroy']);
 
         Route::post('logout', [V1\AuthController::class, 'logout'])->name('user.logout');
     });
