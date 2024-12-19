@@ -2,6 +2,7 @@
 
 namespace App\Jobs\V1\Project;
 
+use App\Http\Resources\V1\Project\IndexProjectResource;
 use App\Models\Project\Project;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -22,6 +23,7 @@ class Index
      */
     public function handle()
     {
-        return Project::all();
+        $project = Project::all();
+        return IndexProjectResource::collection($project);
     }
 }

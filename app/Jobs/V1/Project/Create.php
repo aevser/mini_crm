@@ -18,12 +18,12 @@ class Create
         private int $user_id,
         private string $name,
         private string $api_token,
-        private ?bool $timezone,
+        private bool $timezone,
         private ?string $color,
-        private ?bool $enabled,
-        private ?int $lead_validation_days,
-        private ?bool $detect_region,
-        private ?bool $calltracking,
+        private bool $enabled,
+        private int $lead_validation_days,
+        private bool $detect_region,
+        private bool $calltracking,
         private int $leads_today,
         private int $leads_total
     )

@@ -30,14 +30,14 @@ class ProjectController extends Controller
             user_id: Auth::id(),
             name: $request->name,
             api_token: Str::random(60),
-            timezone: $request->timezone,
-            color: $request->color,
-            enabled: $request->enabled,
-            lead_validation_days: $request->lead_validation_days,
-            detect_region: $request->detect_region,
-            calltracking: $request->calltracking,
-            leads_today: $request->leads_today,
-            leads_total: $request->leads_total
+            timezone: 0,
+            color: $request->exists('color') ? $request->color : dechex(rand(0, 16777215)),
+            enabled: 1,
+            lead_validation_days: 0,
+            detect_region: 0,
+            calltracking: 0,
+            leads_today: 0,
+            leads_total: 0
         );
 
         return response()->json(['messages' => 'Проект создан'], Response::HTTP_CREATED);

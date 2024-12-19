@@ -17,14 +17,14 @@ return new class extends Migration
                 ->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('api_token');
-            $table->boolean('timezone')->nullable();
+            $table->boolean('timezone')->default(0);
             $table->string('color')->nullable();
-            $table->boolean('enabled')->nullable();
-            $table->unsignedInteger('lead_validation_days')->nullable();
-            $table->boolean('detect_region')->nullable();
-            $table->boolean('calltracking')->nullable();
-            $table->unsignedInteger('leads_today');
-            $table->unsignedInteger('leads_total');
+            $table->boolean('enabled')->default(1);
+            $table->unsignedInteger('lead_validation_days')->default(0);
+            $table->boolean('detect_region')->default(0);
+            $table->boolean('calltracking')->default(0);
+            $table->unsignedInteger('leads_today')->default(0);
+            $table->unsignedInteger('leads_total')->default(0);
             $table->timestamps();
 
             // Indexing
