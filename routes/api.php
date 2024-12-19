@@ -9,6 +9,8 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('project/{project}/hosts', V1\Project\HostController::class)->only(['index', 'store', 'destroy']);
 
+        Route::post('project/{project}/token', [V1\Project\ProjectTokenController::class, 'refreshToken'])->name('refresh.project.token');
+
         Route::post('logout', [V1\AuthController::class, 'logout'])->name('user.logout');
     });
 
