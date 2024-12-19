@@ -5,6 +5,7 @@ namespace App\Jobs\V1\Project\Host;
 use App\Models\Project\Host;
 use App\Models\Project\Project;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Str;
 
 class Create
 {
@@ -29,10 +30,14 @@ class Create
      */
     public function handle()
     {
+        if (filter_var($this->host, FILTER_VALIDATE_URL)) {
+            $this->host = parse_url($this->host, PHP_URL_HOST);
+        }
+
         $project = Project::findOrFail($this->project_id);
         $host = Host::create([
             'project_id' => $project->id,
-            'host' => $this->host,
+            'host' => Str::lower($this->host),
             'host_api_token' => $this->host_api_token,
             'host_enabled' => $this->host_enabled,
         ]);

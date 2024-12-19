@@ -7,9 +7,13 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::apiResource('project', V1\Project\ProjectController::class);
 
-        Route::apiResource('project/{project}/hosts', V1\Project\HostController::class)->only(['index', 'store', 'destroy']);
+        Route::prefix('project')->group(function () {
+            Route::apiResource('{project}/hosts', V1\Project\HostController::class)->only(['index', 'store', 'destroy']);
 
-        Route::post('project/{project}/token', [V1\Project\ProjectTokenController::class, 'refreshToken'])->name('refresh.project.token');
+            Route::post('{project}/token', [V1\Project\ProjectTokenController::class, 'refreshToken'])->name('refresh.project.token');
+
+        });
+
 
         Route::post('logout', [V1\AuthController::class, 'logout'])->name('user.logout');
     });
