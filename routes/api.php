@@ -10,11 +10,17 @@ Route::prefix('v1')->group(function () {
         Route::prefix('project')->group(function () {
             Route::apiResource('{project}/hosts', V1\Project\HostController::class)->only(['index', 'store', 'destroy']);
 
+            Route::get('{project}/journal', [V1\Project\ProjectController::class, 'journal']);
+
+            Route::post('{project}/toggle', [V1\Project\ProjectController::class, 'toggle']);
+
             Route::post('{project}/token', [V1\Project\ProjectTokenController::class, 'refreshToken'])->name('refresh.project.token');
 
         });
 
-        Route::apiResource('lead', V1\Lead\LeadController::class);
+        Route::apiResource('lead', V1\Lead\LeadController::class)->only(['index', 'destroy']);
+
+        Route::post('lead.add', [V1\Lead\LeadController::class, 'store']);
 
 
         Route::post('logout', [V1\AuthController::class, 'logout'])->name('user.logout');

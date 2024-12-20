@@ -6,7 +6,7 @@ use App\Http\Resources\V1\Project\ShowProjectResource;
 use App\Models\Project\Project;
 use Illuminate\Foundation\Queue\Queueable;
 
-class Show
+class Journal
 {
     use Queueable;
 

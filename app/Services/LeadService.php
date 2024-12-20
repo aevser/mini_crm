@@ -2,13 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Api\LeadsRequest;
-use App\Journal\Facade\Journal;
-use App\Models\Leads;
 use App\Models\Project\Project;
 use Illuminate\Http\Request;
 use App\Jobs\V1\Lead as Jobs;
-use Illuminate\Support\Facades\Log;
 
 class LeadService
 {
@@ -20,11 +16,6 @@ class LeadService
     public function leadAdd(Request $request)
     {
         $request->merge(['project_id' => Project::where('api_token', $request->api_token)->value('id')]);
-        $phone = $request->phone;
-
-        if ($phone[0] == 8) {
-            $phone = preg_replace('/^./', '7', $phone);
-        }
 
         Jobs\Create::dispatchSync(
             project_id: $request->project_id,
@@ -35,7 +26,7 @@ class LeadService
             surname: $request->surname,
             patronymic: $request->patronymic,
             full_name: $request->full_name,
-            phone: $phone,
+            phone: $request->phone[0] == '8' ? '7' . substr($request->phone, 1) : $request->phone,
             entries: $request->entries,
             email: $request->email,
             cost: $request->cost,

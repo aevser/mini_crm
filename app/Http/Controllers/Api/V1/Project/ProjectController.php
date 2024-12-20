@@ -18,12 +18,6 @@ class ProjectController extends Controller
         return response()->json(['projects' => $projects], Response::HTTP_OK);
     }
 
-    public function show(int $id)
-    {
-        $project = Jobs\Show::dispatchSync($id);
-        return response()->json(['project' => $project], Response::HTTP_OK);
-    }
-
     public function store(Requests\Create $request)
     {
         Jobs\Create::dispatchSync(
@@ -66,5 +60,17 @@ class ProjectController extends Controller
     {
         Jobs\Delete::dispatchSync($id);
         return response()->json(['messages' => 'Проект удален'], Response::HTTP_OK);
+    }
+
+    public function journal(int $id)
+    {
+        $project = Jobs\Journal::dispatchSync($id);
+        return response()->json(['project' => $project], Response::HTTP_OK);
+    }
+
+    public function toggle(int $id)
+    {
+        Jobs\Toggle::dispatchSync($id);
+        return response()->json(['messages' => 'Статус проекта изменен'], Response::HTTP_OK);
     }
 }

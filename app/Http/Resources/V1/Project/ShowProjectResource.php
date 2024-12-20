@@ -16,7 +16,15 @@ class ShowProjectResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_id' => $this->user->id,
             'name' => $this->name,
+            'settings' => [
+                'enabled' => $this->enabled,
+                'color' => $this->color,
+                'lead_validation_days' => $this->lead_validation_days,
+                'detect_region' => $this->detect_region,
+                'timezone' => $this->timezone
+            ],
             'leads' => $this->leads->map(function ($lead, $index) {
                 return [
                     'id' => $index + 1,
