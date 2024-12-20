@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Jobs\V1\Project;
+namespace App\Jobs\V1\Lead;
 
-use App\Http\Resources\V1\Project\ShowProjectResource;
-use App\Models\Project\Project;
+use App\Models\Lead\Lead;
 use Illuminate\Foundation\Queue\Queueable;
 
-class Show
+class Delete
 {
     use Queueable;
 
@@ -14,7 +13,7 @@ class Show
      * Create a new job instance.
      */
     public function __construct(
-        private int $project_id
+        private int $lead_id
     )
 
     {
@@ -26,7 +25,7 @@ class Show
      */
     public function handle()
     {
-        $project = Project::findOrFail($this->project_id);
-        return new ShowProjectResource($project);
+        $lead = Lead::destroy($this->lead_id);
+        return $lead;
     }
 }

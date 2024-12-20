@@ -14,6 +14,8 @@ Route::prefix('v1')->group(function () {
 
         });
 
+        Route::apiResource('lead', V1\Lead\LeadController::class);
+
 
         Route::post('logout', [V1\AuthController::class, 'logout'])->name('user.logout');
     });
