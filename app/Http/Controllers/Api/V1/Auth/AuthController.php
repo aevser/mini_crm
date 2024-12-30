@@ -21,7 +21,7 @@ class AuthController extends Controller
         $validated = $this->authService->authenticate($request->validated());
 
         if (!$validated) {
-            return $this->unauthorizedResponse('Неверные данные');
+            return $this->unauthorizedResponse(trans('auth/messages.unauthorized'));
         }
 
         return $this->successResponse($validated);
@@ -31,6 +31,6 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         $this->authService->terminateSuccess(auth()->user());
-        return $this->successResponse('Успешно вышли из системы');
+        return $this->successResponse(trans('auth/messages.logout'));
     }
 }

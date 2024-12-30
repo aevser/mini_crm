@@ -16,13 +16,12 @@ class AuthService
         //
     }
 
-    public function authenticate(array $data): array
+    public function authenticate(array $data): array|false
     {
         if (!Auth::attempt($data)) {
-            return [
-                'success' => false,
-            ];
+            return false;
         }
+
         $user = Auth::user();
 
         return [

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\V1\Auth;
+namespace App\Http\Requests\V1\Project;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class AuthRequest extends FormRequest
+class Update extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +23,23 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|string'
+            'user_id' => 'required|integer|exists:users,id',
+            'name' => 'required|string|max:255',
+            'api_token' => 'nullable|string|unique:projects,api_token,' . $this->route('id'),
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required' => trans('validation.auth.email.required'),
-            'password.required' => trans('validation.auth.password.required')
+            'name.max' => trans('validation.project.name.max')
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => Auth::id()
+        ]);
     }
 }
