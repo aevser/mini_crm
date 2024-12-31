@@ -2,20 +2,20 @@
 
 namespace App\Http\Requests\V1\Project;
 
+use App\Helpers\Project\TokenHelper;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class Create extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    private $config;
+    private int $config;
 
     public function __construct()
     {
-        $this->config = env('LENGTH_API_TOKEN_PROJECT');
+        $this->config = env('LENGTH_GENERATE_API_TOKEN');
     }
 
     public function authorize(): bool
@@ -49,7 +49,7 @@ class Create extends FormRequest
     {
         $this->merge([
             'user_id' => Auth::id(),
-            'api_token' => Str::random($this->config)
+            'api_token' => TokenHelper::generateApiToken($this->config)
         ]);
     }
 }

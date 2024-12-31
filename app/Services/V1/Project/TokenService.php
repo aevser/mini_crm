@@ -2,8 +2,8 @@
 
 namespace App\Services\V1\Project;
 
+use App\Helpers\Project\TokenHelper;
 use App\Models\Project\Project;
-use Illuminate\Support\Str;
 
 class TokenService
 {
@@ -14,7 +14,7 @@ class TokenService
 
     public function __construct()
     {
-        $this->config = env('LENGTH_API_TOKEN_PROJECT');
+        $this->config = env('LENGTH_GENERATE_API_TOKEN');
     }
 
     public function getToken(int $id): ?Project
@@ -26,7 +26,7 @@ class TokenService
     {
         $project = Project::findOrFail($id);
         $project->update([
-            'api_token' => Str::random($this->config),
+            'api_token' => TokenHelper::generateApiToken($this->config),
         ]);
     }
 }

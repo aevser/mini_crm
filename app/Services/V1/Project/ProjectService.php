@@ -22,7 +22,7 @@ class ProjectService
 
     public function getOne(int $id): Project
     {
-        return Project::findOrFail($id);
+        return Project::with('hosts')->findOrFail($id);
     }
 
     public function create(array $data): Project

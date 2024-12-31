@@ -15,6 +15,8 @@ Route::prefix('v1')->group(function () {
 
         Route::post('{project}/refresh', [V1\Project\TokenController::class, 'refresh'])->name('project.token.refresh');
 
+        Route::apiResource('{project}/host', V1\Project\HostController::class)->only(['store', 'destroy']);
+
         Route::post('logout', [V1\Auth\AuthController::class, 'logout'])->name('user.logout');
     });
 
