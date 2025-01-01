@@ -17,9 +17,12 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('{project}/host', V1\Project\HostController::class)->only(['store', 'destroy']);
 
+        Route::delete('leads/{lead}', [V1\Lead\LeadController::class, 'destroy'])->name('lead.delete');
+
         Route::post('logout', [V1\Auth\AuthController::class, 'logout'])->name('user.logout');
     });
 
+    Route::post('lead.add', [V1\Lead\LeadController::class, 'store'])->name('lead.add');
     Route::post('login', [V1\Auth\AuthController::class, 'login'])->name('user.login');
 
 });

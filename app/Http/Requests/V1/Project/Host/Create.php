@@ -14,12 +14,8 @@ class Create extends FormRequest
      */
     private string $config;
 
-    public function __construct(
-        protected HostService $hostService
-    )
-
+    public function __construct()
     {
-        parent::__construct();
         $this->config = env('LENGTH_GENERATE_API_TOKEN');
     }
 

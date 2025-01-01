@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Host extends Model
 {
+    const HOST_NOT_FOUND = 'host_not_found';
+
     protected $fillable = [
         'project_id',
         'host',

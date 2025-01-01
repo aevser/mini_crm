@@ -4,22 +4,26 @@ namespace App\Providers;
 
 use App\Events\LeadCount;
 use App\Listeners\CountLeadsListener;
-use App\Listeners\UpdateLeadCounters;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class AppEventProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      */
+    protected $listen = [
+        LeadCount::class => [
+            CountLeadsListener::class,
+        ],
+    ];
+
     public function register(): void
     {
         //
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      */
     public function boot(): void
     {

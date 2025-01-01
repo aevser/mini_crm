@@ -40,4 +40,46 @@ trait ApiResponse
             ]
         ], $code);
     }
+
+    /*
+     * Lead added.
+     */
+
+    public function leadAdd($status, $message, $code = Response::HTTP_CREATED): JsonResponse
+    {
+        return response()->json([
+            'data' => [
+                'status' => $status,
+                'message' => $message,
+            ]
+        ], $code);
+    }
+
+    /*
+     * Lead repeat.
+     */
+
+    public function leadRepeat($status, $message, $code = Response::HTTP_CREATED): JsonResponse
+    {
+        return response()->json([
+            'data' => [
+                'status' => $status,
+                'message' => $message,
+            ]
+        ], $code);
+    }
+
+    /*
+     * Lead Error.
+     */
+
+    public function leadError($status, $message, $code = Response::HTTP_PRECONDITION_FAILED): JsonResponse
+    {
+        return response()->json([
+            'data' => [
+                'status' => $status,
+                'message' => $message,
+            ]
+        ], $code);
+    }
 }
