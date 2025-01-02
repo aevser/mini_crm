@@ -3,6 +3,7 @@
 namespace App\Models\Project;
 
 use App\Models\Lead\Lead;
+use App\Models\Project\Classes\LeadClass;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -56,5 +57,10 @@ class Project extends Model
     public function leads(): HasMany
     {
         return $this->hasMany(Lead::class);
+    }
+
+    public function classes(): HasMany
+    {
+        return $this->hasMany(LeadClass::class);
     }
 }

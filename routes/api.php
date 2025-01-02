@@ -19,6 +19,10 @@ Route::prefix('v1')->group(function () {
 
         Route::delete('leads/{lead}', [V1\Lead\LeadController::class, 'destroy'])->name('lead.delete');
 
+        Route::apiResource('{project}/classes', V1\Project\Classes\ClassController::class)->only(['store', 'update', 'destroy']);
+
+        Route::post('{project}/{lead}/class/assign', [V1\Project\Classes\ClassController::class, 'assign'])->name('lead.assign');
+
         Route::post('logout', [V1\Auth\AuthController::class, 'logout'])->name('user.logout');
     });
 
