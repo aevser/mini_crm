@@ -3,5 +3,5 @@
 return [
     App\Providers\AppEventProvider::class,
     App\Providers\AppServiceProvider::class,
-    App\Providers\EventServiceProvider::class,
+    App\Providers\AppEventProvider::class,
 ];
